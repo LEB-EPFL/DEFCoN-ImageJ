@@ -1,0 +1,8 @@
+# Emacs
+*~
+
+# Maven
+/target
+
+# Sphinx
+/docs/_build
