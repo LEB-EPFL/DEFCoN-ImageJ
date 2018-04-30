@@ -74,14 +74,13 @@ public class DensityCount implements PlugInFilter {
         rt.show("Fluorophore count");
     }
 
-    public int setup(String arg, ImagePlus imp) {
+    public int setup(String pathToModel, ImagePlus imp) {
         // Unlock the image
         if (imp.isLocked()) {imp.unlock();}
         image = imp;
 
         // Loading DEFCoN tensorflow model
-        String pluginDir = IJ.getDir("plugins");
-        SavedModelBundle smb = SavedModelBundle.load(pluginDir + "/DEFCoN/tf_density_count", "serve");
+        SavedModelBundle smb = SavedModelBundle.load(pathToModel, "serve");
         tfSession = smb.session();
 
         // Create the results table
