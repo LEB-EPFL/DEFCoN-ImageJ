@@ -4,11 +4,88 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+	<groupId>org.scijava</groupId>
+	<artifactId>pom-scijava</artifactId>
+	<version>19.2.0</version>
+	<relativePath />
+    </parent>
+    
     <groupId>ch.epfl.leb</groupId>
     <artifactId>DEFCoN_</artifactId>
     <version>0.0.0-SNAPSHOT</version>
 
+    <name>DEFCoN-ImageJ</name>
+    <description>ImageJ plugin for DEFCoN, a fluorescence spot counter using fully convolutional neural networks.</description>
+    <url>https://github.com/LEB-EPFL/DEFCoN-ImageJ</url>
+    <inceptionYear>2018</inceptionYear>
+
+    <organization>
+        <name>The Laboratory of Experimental Biophysics</name>
+        <url>https://leb.epfl.ch</url>
+    </organization>
+
+        <licenses>
+        <license>
+            <name>GNU General Public License v3+</name>
+            <url>https://www.gnu.org/licenses/gpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+	<developer>
+            <id>kmdouglass</id>
+            <name>Kyle M. Douglass</name>
+		<url>https://kmdouglass.github.io</url>
+                <roles>
+                        <role>lead</role>
+                        <role>developer</role>
+                        <role>debugger</role>
+                        <role>reviewer</role>
+                        <role>support</role>
+                        <role>maintainer</role>
+                </roles>
+        </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Baptiste Ottino</name>
+            <url>https://github.com/bottino</url>
+            <roles>
+	        <role>founder</role>
+                <role>developer</role>
+            </roles>
+        </contributor>
+    </contributors>
+    
+    <mailingLists>
+	<mailingList>
+            <name>ImageJ Forum</name>
+            <archive>http://forum.imagej.net/</archive>
+	</mailingList>
+    </mailingLists>
+
+    <scm>
+	<connection>scm:git:git://github.com/LEB-EPFL/DEFCoN-ImageJ</connection>
+	<developerConnection>scm:git:git@github.com:LEB-EPFL/DEFCoN-ImageJ</developerConnection>
+	<tag>HEAD</tag>
+	<url>https://github.com/LEB-EPFL/DEFCoN-ImageJ</url>
+    </scm>
+        
+    <issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/LEB-EPFL/DEFCoN-ImageJ/issues</url>
+    </issueManagement>
+    
+    <ciManagement>
+	<system>https://travis-ci.org/LEB-EPFL/DEFCoN-ImageJ</system>
+    </ciManagement>
+    
     <properties>
+        <license.licenseName>gpl_v3</license.licenseName>
+        <license.copyrightOwners>The Laboratory of Experimental Biophysics, EPFL</license.copyrightOwners>
         <tf.version>1.5.0</tf.version>
     </properties>
 
@@ -45,18 +122,16 @@
         <dependency>
             <groupId>net.imglib2</groupId>
             <artifactId>imglib2-ij</artifactId>
-            <version>2.0.0-beta-38</version>
         </dependency>
 
         <dependency>
             <groupId>net.imagej</groupId>
             <artifactId>ij</artifactId>
-            <version>1.51r</version>
         </dependency>
+
         <dependency>
             <groupId>net.imagej</groupId>
             <artifactId>imagej-tensorflow</artifactId>
-            <version>0.2.0</version>
         </dependency>
     </dependencies>
 
