@@ -57,14 +57,13 @@ public class MaxCountFCN implements PlugInFilter {
     }
 
     // Sets up the plugin. Unlock the image if needed, load the tensorflow model, create the result table
-    public int setup(String arg, ImagePlus imp) {
+    public int setup(String pathToModel, ImagePlus imp) {
         // Unlock the image
         if (imp.isLocked()) {imp.unlock();}
         image = imp;
 
-        // Loading DEFCoN tensorflow model from the plugins folder
-        String pluginDir = IJ.getDir("plugins");
-        SavedModelBundle smb = SavedModelBundle.load(pluginDir + "/DEFCoN/tf_max_count", "serve");
+        // Loading DEFCoN tensorflow model
+        SavedModelBundle smb = SavedModelBundle.load(pathToModel, "serve");
         tfSession = smb.session();
 
         // Create the results table

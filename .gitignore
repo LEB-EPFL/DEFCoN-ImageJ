@@ -6,3 +6,7 @@
 
 # Sphinx
 /docs/_build
+
+# Netbeans
+licenseheader.txt
+nb-configuration.xml

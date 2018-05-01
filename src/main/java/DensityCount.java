@@ -21,11 +21,9 @@ import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;
 import ij.measure.ResultsTable;
-import ij.plugin.LutLoader;
 import ij.plugin.filter.PlugInFilter;
 import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
-import ij.process.LUT;
 import ij.WindowManager;
 import ij.ImageStack;
 
@@ -67,21 +65,20 @@ public class DensityCount implements PlugInFilter {
 
         // Display the stack of density maps with viridis colormap
         ImagePlus density_image = new ImagePlus("Density map", densityStack);
-        LUT viridis = LutLoader.openLut(IJ.getDir("plugins") + "/DEFCoN/mpl-viridis.lut");
-        density_image.setLut(viridis);
+        IJ.run(density_image, "mpl-viridis", "");
         density_image.show();
+        
 
         rt.show("Fluorophore count");
     }
 
-    public int setup(String arg, ImagePlus imp) {
+    public int setup(String pathToModel, ImagePlus imp) {
         // Unlock the image
         if (imp.isLocked()) {imp.unlock();}
         image = imp;
 
         // Loading DEFCoN tensorflow model
-        String pluginDir = IJ.getDir("plugins");
-        SavedModelBundle smb = SavedModelBundle.load(pluginDir + "/DEFCoN/tf_density_count", "serve");
+        SavedModelBundle smb = SavedModelBundle.load(pathToModel, "serve");
         tfSession = smb.session();
 
         // Create the results table
