@@ -2,3 +2,14 @@ language: java
 jdk:
 - oraclejdk8
 - openjdk8
+deploy:
+  provider: releases
+  api_key:
+    secure: hNTQ6x09NvTsIF0AVQ4B8FJv5J9BDQ7SBeUyfYX3L1qNh9wgKOWEnXfQmaLHffHsiXWt/IdzWc9JgDGMz4wJ0I4uJJ7UupuTz3PFU+HU7CaqFQwViOuRdR4ToYRz5ySAn3R9PIVZ5F5oMwcWW/5UcLeXkbvCPcKmpF8glsc649ueEQpySI45TSW09TPtwKcgKLWNQArRANgmothxzhfm+fyny9q7Dhj4NGM1+aHx3x3Yqxr33G/3d04Y9yXwXA8djVInbh75thuL1hrN4V8W123MfSqVbvx2C/0wmCeeFV393YDAr4mV9FEa2HCZvE/IqR9epdJ48UPbIv6gjllDcPzvfNhZJzgDHrmQtEvXkUJT04CdWwbKQkSfrUmf1bpmawU/5bNZo9GftpOOWZpRlF0FfikVjdCQdZIjGdLAIBRLEeTfYpVcVmY14khuAMlkNUhoAHT0Mm07twjwQ4ks6XjWuR/Bt1nfrdJ91dAJN889C1rNNygCI8NYcm5zJMSG2Be2sAlMixkf8GhM2ecr3+sDUSdFd0yDLHFEdovpHDFKd+ogfWfQYKuqqg1b1YzvyPuUIsQN0hPEVMadmLfuylv78yTFKlJ/2k1iwg6YlFuApprQtiFRaf8rcCeQ/9QmUn+3JTTjw06Zl7RMuEte8RWohCD0NFSu+7pvg2yXTRM=
+  file_glob: true
+  file:
+    - target/DEFCoN_*.jar
+    - pom.xml
+  on:
+    repo: LEB-EPFL/DEFCoN-ImageJ
+    tags: true

@@ -38,8 +38,10 @@ equal to the estimated number of fluorescent spots within that region.
 
 The maximum local count network first computes the sum of the pixels
 in all possible subregions of the density map. It returns the single
-largest sum of all these sums. In effect, it reports the highest
-*local* density of spots across an entire image.
+largest value of all these sums. In effect, it reports the highest
+*local* density of spots across an entire image. (The original maximum
+count network available on the DEFCoN-ImageJ wiki uses 7x7 pixels
+subregions.)
 
 .. image:: _images/max_local_count.png
    :align: center
