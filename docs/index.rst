@@ -12,7 +12,7 @@ fully convolutional neural networks
 .. toctree::
    :maxdepth: 1
 
-   quickstart
+   instructions
    _javasphinx/packages
 
 This is the ImageJ plugin for the density estimation by fully
@@ -29,9 +29,10 @@ Authors
 See also
 ========
 
-- `DEFCoN`_ - Density Estimation by Fully Convolutional Networks
-- `ALICA`_ - Automated Laser Illumination Control Algorithm
-- `SASS`_ - SMLM Acquistion Simulation Software
+- `DEFCoN-ImageJ Wiki`_ - Download site for pre-trained DEFCoN models
+- `DEFCoN`_ - Software for training a DEFCoN model
+- `ALICA`_ - Automated laser illumination control for Micro-Manager
+- `SASS`_ - SMLM acquistion simulation software
 
 Indices and tables
 ==================
@@ -39,6 +40,7 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
+.. _DEFCoN-ImageJ Wiki: https://github.com/LEB-EPFL/DEFCoN-ImageJ/wiki
 .. _DEFCoN: https://github.com/LEB-EPFL/DEFCoN
 .. _ALICA: https://github.com/LEB-EPFL/ALICA
 .. _SASS: https://github.com/LEB-EPFL/SASS

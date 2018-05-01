@@ -1,8 +1,8 @@
-Quickstart
-==========
+Instructions
+============
 
 .. contents::
-   :depth: 2
+   :depth: 3
 
 Installation
 ------------
