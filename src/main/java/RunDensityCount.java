@@ -44,7 +44,7 @@ public class RunDensityCount implements PlugIn {
     public void run(String arg) {
         GenericDialog gd = new GenericDialog("DEFCoN Setup: Density Count");
         gd.addMessage("Please specify the path to the saved DEFCoN density " +
-                      "count model.");
+                      "map model.");
         
         // Loads the previously used path.
         String pathPref = Prefs.get(PATHKEY, DEFAULTPATH);
