@@ -1,3 +1,5 @@
+package ch.epfl.leb.defcon.ij;
+
 /**
  * Copyright (C) 2018 Laboratory of Experimental Biophysics, Ecole
  * Polytechnique Federale de Lausanne (EPFL), Switzerland
@@ -17,6 +19,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+import ch.epfl.leb.defcon.ij.DensityCount;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;

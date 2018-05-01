@@ -17,6 +17,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+import ch.epfl.leb.defcon.ij.MaxCountFCN;
 import ij.IJ;
 import ij.Prefs;
 import ij.ImagePlus;

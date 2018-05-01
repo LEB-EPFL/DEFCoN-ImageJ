@@ -1,3 +1,5 @@
+package ch.epfl.leb.defcon.ij;
+
 /**
  * Copyright (C) 2018 Laboratory of Experimental Biophysics, Ecole
  * Polytechnique Federale de Lausanne (EPFL), Switzerland
