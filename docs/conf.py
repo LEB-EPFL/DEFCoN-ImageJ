@@ -12,21 +12,23 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
+
+import os
+import subprocess
+
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
-project = u'DEFCoN-ImageJ'
-copyright = u'2018, Baptiste Ottino, Kyle M. Douglass'
-author = u'Baptiste Ottino, Kyle M. Douglass'
+project = 'DEFCoN-ImageJ'
+copyright = '2018, The Laboratory of Experimental Biophysics, EPFL, Lausanne, Switzerland'
+author = 'Baptiste Ottino, Kyle M. Douglass'
 
 # The short X.Y version
-version = u''
+version = '0.0.0'
 # The full version, including alpha/beta/rc tags
-release = u'0.0.0'
+release = '0.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -41,6 +43,7 @@ release = u'0.0.0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
+    'javasphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -65,7 +68,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -130,8 +133,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'DEFCoN-ImageJ.tex', u'DEFCoN-ImageJ Documentation',
-     u'Baptiste Ottino, Kyle M. Douglass', 'manual'),
+    (master_doc, 'DEFCoN-ImageJ.tex', 'DEFCoN-ImageJ Documentation',
+     'Baptiste Ottino, Kyle M. Douglass', 'manual'),
 ]
 
 
@@ -140,7 +143,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'defcon-imagej', u'DEFCoN-ImageJ Documentation',
+    (master_doc, 'defcon-imagej', 'DEFCoN-ImageJ Documentation',
      [author], 1)
 ]
 
@@ -151,10 +154,18 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'DEFCoN-ImageJ', u'DEFCoN-ImageJ Documentation',
+    (master_doc, 'DEFCoN-ImageJ', 'DEFCoN-ImageJ Documentation',
      author, 'DEFCoN-ImageJ', 'One line description of project.',
      'Miscellaneous'),
 ]
 
 
 # -- Extension configuration -------------------------------------------------
+
+# -- ReadTheDocs ----------------------------------------------------------
+
+read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
+
+if read_the_docs_build:
+    print('calling javasphinx')
+    subprocess.call('javasphinx-apidoc -u -o _javasphinx/ ../src/', shell=True)

@@ -27,9 +27,20 @@ The density map network produces a density map estimate from an
 image. The sum of the pixel values in a region of the density map is
 equal to the estimated number of fluorescent spots within that region.
 
-The maximum local count network produces the largest number of spots
-over all subregions of an image. In other words, it calculates the
-highest local density of spots.
+.. image:: _images/density_map.png
+   :align: center
+   :alt: A ground truth image of fluorescence spots and its density
+         map representation.
+
+The maximum local count network first computes the sum of the pixels
+in all possible subregions of the density map. It returns the single
+largest sum of all these sums. In effect, it reports the highest
+*local* density of spots across an entire image.
+
+.. image:: _images/max_local_count.png
+   :align: center
+   :alt: An illustration of how the maximum local count is derived
+	 from a predicted density map.
 
 The ImageJ GUI
 ++++++++++++++
