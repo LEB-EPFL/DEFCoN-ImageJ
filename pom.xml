@@ -7,7 +7,7 @@
     <parent>
 	<groupId>org.scijava</groupId>
 	<artifactId>pom-scijava</artifactId>
-	<version>21.0.0</version>
+	<version>19.2.0</version>
 	<relativePath />
     </parent>
     
@@ -86,15 +86,16 @@
     <properties>
         <license.licenseName>gpl_v3</license.licenseName>
         <license.copyrightOwners>The Laboratory of Experimental Biophysics, EPFL</license.copyrightOwners>
+	<tensorflow.version>1.6.0</tensorflow.version>
     </properties>
 
     <repositories>
-        <repository>
-            <id>imagej-releases</id>
-            <url>http://maven.imagej.net/content/repositories/releases/</url>
-        </repository>
+	<repository>
+	    <id>imagej.public</id>
+	    <url>https://maven.imagej.net/content/groups/public</url>
+	</repository>
     </repositories>
-
+    
     <dependencies>
 
         <!--
@@ -115,6 +116,7 @@
         <dependency>
             <groupId>org.tensorflow</groupId>
             <artifactId>tensorflow</artifactId>
+	    <version>${tensorflow.version}</version>
         </dependency>
         
         <dependency>
