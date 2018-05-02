@@ -10,6 +10,7 @@ deploy:
   file:
     - target/DEFCoN_*.jar
     - pom.xml
+  skip_cleanup: true
   on:
     repo: LEB-EPFL/DEFCoN-ImageJ
     tags: true

@@ -13,6 +13,7 @@ fully convolutional neural networks
    :maxdepth: 1
 
    instructions
+   _javasphinx/packages
 
 This is the ImageJ plugin for the density estimation by fully
 convolutional networks (`DEFCoN`_) algorithm, an image processing tool
@@ -32,6 +33,13 @@ See also
 - `DEFCoN`_ - Software for training a DEFCoN model
 - `ALICA`_ - Automated laser illumination control for Micro-Manager
 - `SASS`_ - SMLM acquistion simulation software
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 
 .. _DEFCoN-ImageJ Wiki: https://github.com/LEB-EPFL/DEFCoN-ImageJ/wiki
 .. _DEFCoN: https://github.com/LEB-EPFL/DEFCoN

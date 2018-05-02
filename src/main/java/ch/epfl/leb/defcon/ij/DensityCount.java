@@ -153,8 +153,8 @@ public class DensityCount implements PlugInFilter {
         // Img<FloatType> img_divided = divide(img, 65535);
 
         // Creates a tensorflow tensor from the Img
-        // Second argument: ImageJ image dimensions are in XY order, tensorflow expects YX
-        Tensor<Float> imageTensor = Tensors.tensor(img, new int[]{1,0});
+        // This line was changed in the commit following e4079df80713a7e18f58a38
+        Tensor<Float> imageTensor = Tensors.tensorFloat(img);
 
         // All this section is there to add two dimensions to imageTensor, to be consistent with tensorflow layer input
         // shape(imageTensor) = (height, width) -> shape(inputTensor) = (1, height, width, 1)

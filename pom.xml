@@ -7,7 +7,7 @@
     <parent>
 	<groupId>org.scijava</groupId>
 	<artifactId>pom-scijava</artifactId>
-	<version>19.2.0</version>
+	<version>21.0.0</version>
 	<relativePath />
     </parent>
     
@@ -86,7 +86,6 @@
     <properties>
         <license.licenseName>gpl_v3</license.licenseName>
         <license.copyrightOwners>The Laboratory of Experimental Biophysics, EPFL</license.copyrightOwners>
-        <tf.version>1.5.0</tf.version>
     </properties>
 
     <repositories>
@@ -116,7 +115,6 @@
         <dependency>
             <groupId>org.tensorflow</groupId>
             <artifactId>tensorflow</artifactId>
-            <version>${tf.version}</version>
         </dependency>
         
         <dependency>

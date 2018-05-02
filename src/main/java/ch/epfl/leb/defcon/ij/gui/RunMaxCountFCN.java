@@ -1,4 +1,6 @@
-/*
+package ch.epfl.leb.defcon.ij.gui;
+
+/**
  * Copyright (C) 2018 Laboratory of Experimental Biophysics, Ecole
  * Polytechnique Federale de Lausanne (EPFL), Switzerland
  *
@@ -17,7 +19,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import ch.epfl.leb.defcon.ij.DensityCount;
+import ch.epfl.leb.defcon.ij.MaxCountFCN;
 import ij.IJ;
 import ij.Prefs;
 import ij.ImagePlus;
@@ -26,46 +28,46 @@ import ij.gui.GenericDialog;
 import ij.process.ImageProcessor;
 
 /**
- * Launches the density count DEFCoN plugin.
+ * Launches the maximum local count DEFCoN plugin.
  * 
  * @author Kyle M. Douglass
  */
-public class RunDensityCount implements PlugIn {
+public class RunMaxCountFCN implements PlugIn {
     
     /**
      * The name of the key for the path to the DEFCoN density count model.
      */
-    private static final String PATHKEY = "defcon.model.density";
+    private static final String PATHKEY = "defcon.model.maxCount";
     
     /**
      * The default path to the density count model when there is none saved.
      */
-    private static final String DEFAULTPATH = "/path/to/tf_density_count";
+    private static final String DEFAULTPATH = "/path/to/tf_max_count";
     
     public void run(String arg) {
         GenericDialog gd = new GenericDialog("DEFCoN Setup: Density Count");
-        gd.addMessage("Please specify the path to the saved DEFCoN density " +
-                      "map model.");
+        gd.addMessage("Please specify the path to the saved DEFCoN maximum " +
+                      "local model.");
         
         // Loads the previously used path.
         String pathPref = Prefs.get(PATHKEY, DEFAULTPATH);
         
-        // Display the GUI dialog requesting the model path.
-        gd.addStringField( "path", pathPref, 128);
+        // Displays the GUI dialog requesting the model path.
+        gd.addStringField( "path", pathPref, 64);
         gd.showDialog();
         if (gd.wasCanceled()) return;
 
-        // Computes this path for later.
+        // Remembers this path for later.
         String path = gd.getNextString();
         Prefs.set(PATHKEY, path);
 
-        // Run the density count.
+        // Computes the maximum local count.
         ImagePlus imp = IJ.getImage();
-        DensityCount dc = new DensityCount();
-        dc.setup(path, imp);
+        MaxCountFCN mc = new MaxCountFCN();
+        mc.setup(path, imp);
 
         ImageProcessor ip = imp.getProcessor();
-        dc.run(ip);
+        mc.run(ip);
     }
-    
 }
+
