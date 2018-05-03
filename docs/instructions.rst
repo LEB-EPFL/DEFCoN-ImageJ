@@ -7,16 +7,38 @@ Instructions
 Installation
 ------------
 
-1. Download the latest DEFCoN-ImageJ .jar from the `GitHub releases
+You will need a trained DEFCoN network model to use the plugin
+regardless of the installation procedure that you choose to
+follow. These may be downloaded from the `DEFCoN-ImageJ Wiki
+<https://github.com/LEB-EPFL/DEFCoN-ImageJ/wiki>`_.
+
+Fiji/ImageJ update site
++++++++++++++++++++++++
+
+1. Make a backup of your Fiji folder. (This is always a good idea
+   before adding an `update site
+   <https://imagej.net/List_of_update_sites>`_.
+2. Open Fiji and navigate to *Help > Update...*. Install any updates
+   and restart Fiji if necessary.
+3. In the ImageJ Update dialog, click the *Manage update sites*
+   button, scroll to the bottom of the list, and add
+   http://sites.imagej.net/Kmdouglass under the URL column. You may
+   give it any name you want, such as LEB-EPFL.
+4. Install all the updates and restart Fiji.
+5. Verify that the plugin is recognized by clicking **Plugins** on the
+   menu bar and looking for **DEFCoN**.
+
+Manual installation
++++++++++++++++++++
+
+1. Download the latest DEFCoN-ImageJ .jar and dependencies from the
+   `GitHub releases
    <https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases>`_.
 2. Place the DEFCoN-ImageJ .jar file inside your
-   **<ImageJ_Root>/plugins** folder.
+   **<ImageJ_Root>/plugins** folder. Unzip the dependencies into the
+   **<ImageJ_Root>/jars** folder.
 3. Verify that the plugin is recognized by opening ImageJ/Fiji by
    clicking **Plugins** on the menu bar and looking for **DEFCoN**.
-
-You will also need a trained DEFCoN network model to use the
-plugin. These may be downloaded from the `DEFCoN-ImageJ Wiki
-<https://github.com/LEB-EPFL/DEFCoN-ImageJ/wiki>`_.
 
 Using DEFCoN
 ------------

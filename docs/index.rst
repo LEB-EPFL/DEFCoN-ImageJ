@@ -38,7 +38,6 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
 .. _DEFCoN-ImageJ Wiki: https://github.com/LEB-EPFL/DEFCoN-ImageJ/wiki
