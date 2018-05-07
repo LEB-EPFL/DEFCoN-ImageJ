@@ -41,6 +41,14 @@ For more detailed instructions, please see the documentation.
 
 http://defcon-imagej.readthedocs.io/en/latest/
 
+Technical information about the design of DEFCoN may be found in the
+following preprint:
+
+> "Design Principles for Autonomous Illumination Control in
+> Localization Microscopy," Marcel Štefko, Baptiste Ottino, Kyle M
+> Douglass, Suliana Manley, bioRxiv 295519; doi:
+> https://doi.org/10.1101/295519
+
 # Acknowledgements
 
 - [ImageJ](http://imagej.net/ImageJ2)
