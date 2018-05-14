@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Decoupled the core density map estimation routine into a `Predictor` interface and `DefaultPredictor` implementation.
+
 ## [v0.0.0]
 
 ### Added
