@@ -18,8 +18,12 @@
  */
 package ch.epfl.leb.defcon.predictors;
 
-import ij.process.FloatProcessor;
+import ch.epfl.leb.defcon.predictors.internal.SessionClosedException;
+import ch.epfl.leb.defcon.predictors.internal.ImageBitDepthException;
+import ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException;
+
 import ij.process.ImageProcessor;
+import ij.process.FloatProcessor;
 
 /**
  * Makes density map predictions from images.
@@ -29,27 +33,33 @@ import ij.process.ImageProcessor;
 public interface Predictor {
     
     /**
+     * Closes resources associated with this predictor.
+     */
+    public void close();
+    
+    /**
      * Returns the most recent count.
      * 
      * @return The predicted count from the density map.
+     * @throws ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException
      */
-    public double getCount();
+    public double getCount() throws UninitializedPredictorException;
     
     /**
      * Returns the most recently calculated density map prediction.
      * 
      * @return The predicted density map.
+     * @throws ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException
      */
-    public FloatProcessor getDensityMap();
+    public FloatProcessor getDensityMap() throws UninitializedPredictorException;
     
     /**
-     * Makes a density map prediction from a 2D image.
-     * 
-     * If the ImagePlus has more than one image, only the currently 
+     * Makes a density map prediction from a 2D  image.
      * 
      * @param ip The image to perform a prediction on.
      */
-    public void predict(final ImageProcessor ip);
+    public void predict(final ImageProcessor ip) throws ImageBitDepthException,
+                                                      SessionClosedException;
     
     /**
      * Initializes the predictor with a saved TensorFlow model bundle.

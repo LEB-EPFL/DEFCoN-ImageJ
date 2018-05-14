@@ -18,7 +18,8 @@
  */
 package ch.epfl.leb.defcon.ij;
 
-import ch.epfl.leb.defcon.ij.DensityCount;
+import ch.epfl.leb.defcon.predictors.internal.AbstractPredictor;
+
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;
@@ -31,7 +32,7 @@ import net.imglib2.type.numeric.RealType;
 import org.tensorflow.*;
 
 
-public class MaxCountFCN implements PlugInFilter {
+public class MaxCountFCN extends AbstractPredictor implements PlugInFilter {
     private ImagePlus image;
     private ResultsTable rt;
     private Session tfSession;
@@ -64,12 +65,13 @@ public class MaxCountFCN implements PlugInFilter {
      * Sets up the PlugInFilter.
      * 
      * Please see
-     * https://imagej.nih.gov/ij/developer/api/ij/plugin/filter/PlugInFilter.html
+     * 
      * for more information on the PlugInFilter API.
      * 
      * @param pathToModel The path to a saved TensorFlow model bundle.
      * @param imp The currently active image.
      * @return A flag indicating which types of images this plugin handles.
+     * @see <a href="https://imagej.nih.gov/ij/developer/api/ij/plugin/filter/PlugInFilter.html">PlugInFilter</a>
      */
     public int setup(String pathToModel, ImagePlus imp) {
         // Unlock the image
@@ -112,7 +114,7 @@ public class MaxCountFCN implements PlugInFilter {
         ImagePlus impRoi = imp.crop();
 
         // Converts the ImagePlus input to a tensorflow tensor
-        Tensor<Float> inputTensor = DensityCount.imageToTensor(impRoi);
+        Tensor<Float> inputTensor = imageToTensor(impRoi);
 
         // Make the prediction with DEFCoN
         Tensor<Float> outputTensor = tfSession.runner()

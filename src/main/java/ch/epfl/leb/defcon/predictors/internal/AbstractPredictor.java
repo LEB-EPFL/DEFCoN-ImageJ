@@ -44,7 +44,20 @@ public abstract class AbstractPredictor {
     /**
      * A copy of the current TensorFlow session.
      */
-    private Session tfSession;
+    protected Session tfSession;
+    
+    /**
+     * Has the TensorFlow session been closed?
+     */
+    protected boolean isClosed = false;
+    
+    /**
+     * Closes resources associated with this predictor.
+     */
+    public void close() {
+        tfSession.close();
+        isClosed = true;
+    }
     
     /**
      * Initializes the predictor.
@@ -102,4 +115,16 @@ public abstract class AbstractPredictor {
         return inputTensor;
     }
     
+    /**
+     * Failsafe in case the TensorFlow session has not been closed.
+     * @throws java.lang.Throwable
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            tfSession.close();
+        } finally {
+            super.finalize();
+        }
+    }
 }
