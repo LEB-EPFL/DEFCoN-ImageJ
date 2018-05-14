@@ -1,8 +1,6 @@
-package ch.epfl.leb.defcon.ij;
-
 /**
- * Copyright (C) 2018 Laboratory of Experimental Biophysics, Ecole
- * Polytechnique Federale de Lausanne (EPFL), Switzerland
+ * Copyright (C) 2018 Laboratory of Experimental Biophysics
+ * Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,6 +16,7 @@ package ch.epfl.leb.defcon.ij;
  * along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package ch.epfl.leb.defcon.ij;
 
 import ch.epfl.leb.defcon.ij.DensityCount;
 import ij.IJ;
@@ -51,7 +50,9 @@ public class MaxCountFCN implements PlugInFilter {
             rt.incrementCounter();
             // Make the prediction
             float prediction = predict(slice, reshapedRoi);
-            // Build the results table
+            // Build the results table.
+            // TODO Make the (7x7) label more general. It currently depends
+            // on the network using 7x7 subregions.
             rt.addValue("Max local count (7x7)", prediction);
             IJ.showProgress(i, stack_size);
         }
@@ -59,7 +60,17 @@ public class MaxCountFCN implements PlugInFilter {
         rt.show("Maximum local count");
     }
 
-    // Sets up the plugin. Unlock the image if needed, load the tensorflow model, create the result table
+    /**
+     * Sets up the PlugInFilter.
+     * 
+     * Please see
+     * https://imagej.nih.gov/ij/developer/api/ij/plugin/filter/PlugInFilter.html
+     * for more information on the PlugInFilter API.
+     * 
+     * @param pathToModel The path to a saved TensorFlow model bundle.
+     * @param imp The currently active image.
+     * @return A flag indicating which types of images this plugin handles.
+     */
     public int setup(String pathToModel, ImagePlus imp) {
         // Unlock the image
         if (imp.isLocked()) {imp.unlock();}

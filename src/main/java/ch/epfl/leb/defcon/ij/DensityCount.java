@@ -1,8 +1,6 @@
-package ch.epfl.leb.defcon.ij;
-
 /**
- * Copyright (C) 2018 Laboratory of Experimental Biophysics, Ecole
- * Polytechnique Federale de Lausanne (EPFL), Switzerland
+ * Copyright (C) 2018 Laboratory of Experimental Biophysics
+ * Ecole Polytechnique Federale de Lausanne (EPFL), Switzerland
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,6 +16,7 @@ package ch.epfl.leb.defcon.ij;
  * along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package ch.epfl.leb.defcon.ij;
 
 import ij.IJ;
 import ij.ImagePlus;
@@ -36,7 +35,11 @@ import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
 import org.tensorflow.*;
 
-
+/**
+ * Computes a density map estimate for counting objects within an image.
+ * 
+ * @author Baptiste Ottino
+ */
 public class DensityCount implements PlugInFilter {
     private ImagePlus image;
     private ResultsTable rt;
@@ -44,8 +47,14 @@ public class DensityCount implements PlugInFilter {
     private Roi roi;
     private ImageStack densityStack;
 
-    // Runs DEFCoN on the selected image stack. It outputs a results table with the count on each frame, and a stack of
-    // the predicted density maps
+    /**
+     * Computes a density map from the selected image stack.
+     * 
+     * A results table that indicates the count is displayed in addition to the
+     * density map image.
+     * 
+     * @param ip The input image processor.
+     */
     public void run(ImageProcessor ip) {
         int stack_size = image.getImageStackSize();
         roi = WindowManager.getCurrentImage().getRoi();
@@ -74,8 +83,19 @@ public class DensityCount implements PlugInFilter {
         rt.show("Fluorophore count");
     }
 
+    /**
+     * Sets up the PlugInFilter.
+     * 
+     * Please see
+     * https://imagej.nih.gov/ij/developer/api/ij/plugin/filter/PlugInFilter.html
+     * for more information on the PlugInFilter API.
+     * 
+     * @param pathToModel The path to a saved TensorFlow model bundle.
+     * @param imp The currently active image.
+     * @return A flag indicating which types of images this plugin handles.
+     */
     public int setup(String pathToModel, ImagePlus imp) {
-        // Unlock the image
+        // Unlocks the image.
         if (imp.isLocked()) {imp.unlock();}
         image = imp;
 
@@ -86,7 +106,7 @@ public class DensityCount implements PlugInFilter {
         // Create the results table
         rt = new ResultsTable();
 
-        // Only accepts 8bit and 16bit images.
+        // Only accept 8-bit and 16-bit images.
         return DOES_8G | DOES_16;
     }
 
