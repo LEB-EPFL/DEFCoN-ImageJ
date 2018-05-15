@@ -20,6 +20,7 @@ package ch.epfl.leb.defcon.predictors.internal;
 
 import ij.IJ;
 import ij.ImagePlus;
+import ij.process.ImageProcessor;
 import ij.process.FloatProcessor;
 
 import java.io.File;
@@ -100,6 +101,28 @@ public class DefaultPredictorIT {
         
         assertEquals(imp.getHeight(), fp.getHeight());
         assertEquals(imp.getWidth(), fp.getWidth());
+    }
+    
+    /**
+     * Test of getDensityMap method, of class DefaultPredictor.
+     * 
+     * This test verifies that images whose dimensions are not multiples of four
+     * are automatically cropped before computing the density map.
+     */
+    @Test
+    public void testGetDensityMapResized() throws Exception {
+        System.out.println("testGetDensityMapResized");
+        ImageProcessor ip = imp.getProcessor();
+        
+        // Reduce the size of the test data to a non-multiple of four.
+        ip.setRoi(0, 0, ip.getWidth() - 1, ip.getHeight() - 1);
+        
+        predictor.predict(ip.crop());
+        FloatProcessor fp = predictor.getDensityMap();
+        predictor.close();
+        
+        assertEquals(imp.getWidth() - 4, fp.getWidth());
+        assertEquals(imp.getHeight() - 4, fp.getHeight());
     }
 
     /**
