@@ -20,9 +20,9 @@ package ch.epfl.leb.defcon.ij;
 
 import ch.epfl.leb.defcon.predictors.Predictor;
 import ch.epfl.leb.defcon.predictors.internal.DefaultPredictor;
-import ch.epfl.leb.defcon.predictors.internal.SessionClosedException;
-import ch.epfl.leb.defcon.predictors.internal.ImageBitDepthException;
-import ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException;
+import ch.epfl.leb.defcon.predictors.SessionClosedException;
+import ch.epfl.leb.defcon.predictors.ImageBitDepthException;
+import ch.epfl.leb.defcon.predictors.UninitializedPredictorException;
 
 import ij.IJ;
 import ij.ImagePlus;

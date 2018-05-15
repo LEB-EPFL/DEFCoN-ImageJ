@@ -18,14 +18,22 @@
  */
 package ch.epfl.leb.defcon.predictors.internal;
 
+import ch.epfl.leb.defcon.predictors.ImageBitDepthException;
+import ch.epfl.leb.defcon.predictors.SessionClosedException;
+import ch.epfl.leb.defcon.predictors.UninitializedPredictorException;
 import ch.epfl.leb.defcon.predictors.Predictor;
+
+import ij.gui.Roi;
 import ij.ImagePlus;
 import ij.process.ByteProcessor;
 import ij.process.FloatProcessor;
 import ij.process.ShortProcessor;
 import ij.process.ImageProcessor;
+import java.awt.Rectangle;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.tensorflow.Tensor;
 
 /**
@@ -48,6 +56,22 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
      * The most-recently computed density map.
      */
     private FloatProcessor densityMap;
+    
+    /**
+     * Checks that an image's dimensions are divisible by four and crops it if not.
+     * 
+     * This restriction on the size of an image is a requirement of DEFCoN.
+     * 
+     * @return The input image, possibly cropped.
+     */
+    private ImageProcessor checkDimensions(ImageProcessor ip) {
+        
+        Rectangle currRoi = ip.getRoi();
+        ip.setRoi(new Roi(currRoi.x, currRoi.y,
+                          currRoi.width - currRoi.width % 4,
+                          currRoi.height - currRoi.height % 4));
+        return ip.crop();
+    }
     
     /**
      * Returns the most recent count.
@@ -93,6 +117,9 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
     /**
      * Makes a density map prediction from a 2D image.
      * 
+     * If either of the image's width or height is not divisible by 4, they will
+     * be cropped to the next largest multiple of four.
+     * 
      * @param ip The image to perform a prediction on.
      */
     @Override
@@ -109,10 +136,10 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
         int bitDepth = ip.getBitDepth();
         switch (bitDepth) {
             case 16:
-                predict(ip.convertToShortProcessor());
+                predict(checkDimensions(ip).convertToShortProcessor());
                 break;
             case 8:
-                predict(ip.convertToByteProcessor());
+                predict(checkDimensions(ip).convertToByteProcessor());
                 break;
             default:
                 String msg = "The predictor only works on 8 and 16-bit images.";

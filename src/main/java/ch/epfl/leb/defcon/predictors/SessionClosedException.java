@@ -16,7 +16,7 @@
  * along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package ch.epfl.leb.defcon.predictors.internal;
+package ch.epfl.leb.defcon.predictors;
 
 /**
  * Raised when a prediction is requested but the TensorFlow session has already been closed.

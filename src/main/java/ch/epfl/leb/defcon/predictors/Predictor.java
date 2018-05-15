@@ -18,9 +18,6 @@
  */
 package ch.epfl.leb.defcon.predictors;
 
-import ch.epfl.leb.defcon.predictors.internal.SessionClosedException;
-import ch.epfl.leb.defcon.predictors.internal.ImageBitDepthException;
-import ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException;
 
 import ij.process.ImageProcessor;
 import ij.process.FloatProcessor;
