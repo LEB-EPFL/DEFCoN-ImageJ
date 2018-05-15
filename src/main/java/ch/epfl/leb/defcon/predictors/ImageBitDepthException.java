@@ -16,16 +16,16 @@
  * along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package ch.epfl.leb.defcon.predictors.internal;
+package ch.epfl.leb.defcon.predictors;
 
 /**
- * Raised when a predictor has not yet been fully initialized.
+ * Raised when an image with an invalid bit-depth is supplied to the predictor.
  * 
  * @author Kyle M. Douglass
  */
-public class UninitializedPredictorException extends Exception {
+public class ImageBitDepthException extends Exception {
     
-    public UninitializedPredictorException(String msg) {
+    public ImageBitDepthException(String msg) {
         super(msg);
     }
     

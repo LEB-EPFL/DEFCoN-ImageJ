@@ -1,12 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [v0.0.2]
 
 ### Added
 
 - The `DefaultPredictor` class now automatically crops the input image
   to dimensions that are a multiple of four.
+  
+### Changed
+- Moved the exceptions associated with the `Predictor` interface into
+  the public `predictors` package.
 
 ## [v0.0.1]
 

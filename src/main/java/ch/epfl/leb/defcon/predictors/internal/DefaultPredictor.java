@@ -18,6 +18,9 @@
  */
 package ch.epfl.leb.defcon.predictors.internal;
 
+import ch.epfl.leb.defcon.predictors.ImageBitDepthException;
+import ch.epfl.leb.defcon.predictors.SessionClosedException;
+import ch.epfl.leb.defcon.predictors.UninitializedPredictorException;
 import ch.epfl.leb.defcon.predictors.Predictor;
 
 import ij.gui.Roi;
