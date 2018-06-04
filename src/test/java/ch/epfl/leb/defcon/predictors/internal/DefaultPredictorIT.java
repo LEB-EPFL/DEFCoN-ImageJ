@@ -20,6 +20,7 @@ package ch.epfl.leb.defcon.predictors.internal;
 
 import ij.IJ;
 import ij.ImagePlus;
+import ij.plugin.SubstackMaker;
 import ij.process.ImageProcessor;
 import ij.process.FloatProcessor;
 
@@ -123,6 +124,56 @@ public class DefaultPredictorIT {
         
         assertEquals(imp.getWidth() - 4, fp.getWidth());
         assertEquals(imp.getHeight() - 4, fp.getHeight());
+    }
+    
+    /**
+     * Test of getLocalCountMap, of class DefaultPredictor.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetLocalCountMap() throws Exception {
+        System.out.println("testGetLocalCountMap");
+        SubstackMaker sub = new SubstackMaker();
+        ImagePlus newImp = sub.makeSubstack(imp, "1");
+        ImageProcessor ip = newImp.getProcessor();
+        
+        predictor.predict(ip);
+        int boxSize = 7;
+        double expectedResult = 1.018;
+        predictor.getMaximumLocalCount(boxSize);
+        predictor.close();
+        
+        FloatProcessor fp = predictor.getLocalCountMap();
+        assertEquals(expectedResult, fp.getMax(), 0.001);
+        assertEquals(ip.getWidth() - boxSize + 1, fp.getWidth());
+        assertEquals(ip.getHeight() - boxSize + 1, fp.getHeight());
+    }
+    
+    /**
+     * Test of getMaximumLocalCount, of class DefaultPredictor.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetMaximumLocalCount() throws Exception {
+        System.out.println("testGetMaximumLocalCount");
+        SubstackMaker sub = new SubstackMaker();
+        ImagePlus newImp = sub.makeSubstack(imp, "1");
+        ImageProcessor ip = newImp.getProcessor();
+        
+        predictor.predict(ip);
+        int boxSize = 7;
+        double expectedResult = 1.018;
+        double result = predictor.getMaximumLocalCount(boxSize);
+        assertEquals(expectedResult, result, 0.001);
+        
+        newImp = sub.makeSubstack(imp, "2");
+        ip = newImp.getProcessor();
+        predictor.predict(ip);
+        expectedResult = 1.023;
+        result = predictor.getMaximumLocalCount(boxSize);
+        assertEquals(expectedResult, result, 0.001);
+        predictor.close();
+
     }
 
     /**

@@ -51,6 +51,29 @@ public interface Predictor {
     public FloatProcessor getDensityMap() throws UninitializedPredictorException;
     
     /**
+     * Returns the most recently-calculated local count map.
+     * 
+     * @return The most recently calculated local count map.
+     * @throws ch.epfl.leb.defcon.predictors.NoLocalCountMapException
+     */
+    public FloatProcessor getLocalCountMap() throws NoLocalCountMapException;
+    
+    /**
+     * Returns the maximum local count value.
+     * 
+     * This value is obtained by convolving the density map with a square kernel
+     * whose values are all 1 and then taking the maximum of the resulting map.
+     * It effectively produces the highest count value over length scales equal
+     * to the size of the kernel.
+     * 
+     * @param boxSize The width of the square kernel.
+     * @return The maximum local count from the density map.
+     * @throws ch.epfl.leb.defcon.predictors.UninitializedPredictorException
+     */
+    public double getMaximumLocalCount(int boxSize)
+           throws UninitializedPredictorException;
+    
+    /**
      * Makes a density map prediction from a 2D  image.
      * 
      * @param ip The image to perform a prediction on.
