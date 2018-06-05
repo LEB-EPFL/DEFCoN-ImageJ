@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v0.1.0]
+
+### Added
+- Two new methods were added to the `Predictor` interface:
+  `getLocalCountMap()` and `getMaximumLocalCount()`. These allow for a
+  more flexible means for computing maximum local counts than the
+  TensorFlow implementation.
+
 ## [v0.0.2]
 
 ### Added
@@ -25,6 +33,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial project files.
 
+[Unreleased]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/compare/v0.1.0...HEAD
+[v0.1.0]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.1.0
 [v0.0.2]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.0.2
 [v0.0.1]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.0.1
 [v0.0.0]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.0.0

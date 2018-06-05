@@ -20,6 +20,7 @@ package ch.epfl.leb.defcon.predictors.internal;
 
 import ch.epfl.leb.defcon.predictors.ImageBitDepthException;
 import ch.epfl.leb.defcon.predictors.SessionClosedException;
+import ch.epfl.leb.defcon.predictors.NoLocalCountMapException;
 import ch.epfl.leb.defcon.predictors.UninitializedPredictorException;
 import ch.epfl.leb.defcon.predictors.Predictor;
 
@@ -29,8 +30,10 @@ import ij.process.ByteProcessor;
 import ij.process.FloatProcessor;
 import ij.process.ShortProcessor;
 import ij.process.ImageProcessor;
-import java.awt.Rectangle;
+import ij.plugin.filter.Convolver;
 
+import java.awt.Rectangle;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,6 +59,11 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
      * The most-recently computed density map.
      */
     private FloatProcessor densityMap;
+    
+    /**
+     * The most-recently computer maximum local count map.
+     */
+    private FloatProcessor localCountMap;
     
     /**
      * Checks that an image's dimensions are divisible by four and crops it if not.
@@ -98,10 +106,63 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
     public FloatProcessor getDensityMap() throws UninitializedPredictorException {
         if (densityMap == null) {
             String msg = "The Predictor has not yet performed any calcuations.";
-            LOGGER.log(Level.WARNING, msg);
+            LOGGER.log(Level.SEVERE, msg);
             throw new UninitializedPredictorException(msg);
         }
         return densityMap;
+    }
+    
+    /**
+     * Returns the most recently-calculated local count map.
+     * 
+     * @return The most recently calculated local count map.
+     * @throws ch.epfl.leb.defcon.predictors.NoLocalCountMapException
+     */
+    @Override
+    public FloatProcessor getLocalCountMap() throws NoLocalCountMapException {
+        if (localCountMap == null) {
+            String msg = "The Predictor has not yet performed any local " + 
+                         "count estimates.";
+            LOGGER.log(Level.SEVERE, msg);
+            throw new NoLocalCountMapException(msg);
+        }
+        return localCountMap;
+    }
+    
+    /**
+     * Returns the maximum local count value.
+     * 
+     * This value is obtained by convolving the density map with a square kernel
+     * whose values are all 1 and then taking the maximum of the resulting map.
+     * It effectively produces the highest count value over length scales equal
+     * to the size of the kernel.
+     * 
+     * @param boxSize The width of the square kernel.
+     * @return The maximum local count from the density map.
+     * @throws ch.epfl.leb.defcon.predictors.UninitializedPredictorException
+     */
+    @Override
+    public double getMaximumLocalCount(int boxSize)
+           throws UninitializedPredictorException {
+        if (densityMap == null) {
+            String msg = "The Predictor has not yet performed any calcuations.";
+            LOGGER.log(Level.WARNING, msg);
+            throw new UninitializedPredictorException(msg);
+        }
+        Convolver convolver = new Convolver();
+        convolver.setNormalize(false);
+        localCountMap = (FloatProcessor) densityMap.clone();
+        float kernel[] = new float[boxSize * boxSize];
+        Arrays.fill(kernel, 1.0f);
+        
+        convolver.convolveFloat(localCountMap, kernel, boxSize, boxSize);
+        int halfBoxSize = boxSize / 2;
+        localCountMap.setRoi(new Roi(halfBoxSize, halfBoxSize,
+                        localCountMap.getWidth() - boxSize + 1 ,
+                        localCountMap.getHeight() - boxSize + 1));
+        localCountMap = localCountMap.crop().convertToFloatProcessor();
+        localCountMap.resetMinAndMax();
+        return localCountMap.getMax();
     }
     
     /**
