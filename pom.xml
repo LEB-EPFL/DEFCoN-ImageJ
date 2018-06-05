@@ -13,7 +13,7 @@
     
     <groupId>ch.epfl.leb</groupId>
     <artifactId>DEFCoN_</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
 
     <name>DEFCoN-ImageJ</name>
     <description>ImageJ plugin for DEFCoN, a fluorescence spot counter using fully convolutional neural networks.</description>
@@ -86,7 +86,16 @@
     <properties>
         <license.licenseName>gpl_v3</license.licenseName>
         <license.copyrightOwners>The Laboratory of Experimental Biophysics, EPFL</license.copyrightOwners>
+
+	<!-- Dependencies -->
 	<tensorflow.version>1.6.0</tensorflow.version>
+
+	<!-- Plugins -->
+	<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+	<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+	<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+	<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+	<maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
     </properties>
 
     <repositories>
@@ -141,14 +150,30 @@
 	</dependency>
     </dependencies>
 
-    <build>
-        <plugins>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+	<repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
-	<!-- Runs the integration tests. -->
+    <profiles>
+      <profile>
+	<id>Default</id>
+  	<activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <build>
+	  <plugins>
+	    <!-- Runs the integration tests. -->
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-failsafe-plugin</artifactId>
-              <version>2.21.0</version>
+              <version>${maven-failsafe-plugin.version}</version>
               <executions>
                 <execution>
                   <id>integration-tests</id>
@@ -163,20 +188,126 @@
             <!-- Enable copying the artifacts and dependencies by setting
                  the 'imagej.app.directory' property to a valid directory. -->
             <plugin>
-                <groupId>net.imagej</groupId>
-                <artifactId>imagej-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-jars</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>copy-jars</goal>
-                        </goals>
-                    </execution>
-                </executions>
+              <groupId>net.imagej</groupId>
+              <artifactId>imagej-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>copy-jars</id>
+                  <phase>install</phase>
+                  <goals>
+                    <goal>copy-jars</goal>
+                  </goals>
+                </execution>
+              </executions>
             </plugin>
-        </plugins>
-    </build>
+          </plugins>
+	</build>
+      </profile>
+      
+      <!-- Activate with the property: mvn clean install -Prelease -->
+      <profile>
+	<id>release</id>
+	<activation>
+	  <property>
+	    <name>release</name>
+	  </property>
+	</activation>
+	
+	<build>
+	  <plugins>
+	    <!-- Deploy to Maven central -->
+	    <plugin>
+              <groupId>org.sonatype.plugins</groupId>
+              <artifactId>nexus-staging-maven-plugin</artifactId>
+              <version>${nexus-staging-maven-plugin.version}</version>
+              <extensions>true</extensions>
+              <configuration>
+                <serverId>ossrh</serverId>
+                <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              </configuration>
+            </plugin>
 
+	    <!-- Creates the sources jar -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-source-plugin</artifactId>
+              <version>${maven-source-plugin.version}</version>
+              <executions>
+		<execution>
+		  <id>attach-sources</id>
+		  <goals>
+                    <goal>jar-no-fork</goal>
+		  </goals>
+		</execution>
+              </executions>
+            </plugin>
+
+	    <!-- Builds the Javadoc -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>${maven-javadoc-plugin.version}</version>
+              <executions>
+		<execution>
+		  <id>attach-javadocs</id>
+		  <goals>
+                    <goal>jar</goal>
+		  </goals>
+		</execution>
+              </executions>
+            </plugin>
+
+	    <!-- Signs the build -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>${maven-gpg-plugin.version}</version>
+              <executions>
+		<execution>
+		  <id>sign-artifacts</id>
+		  <phase>verify</phase>
+		  <goals>
+                    <goal>sign</goal>
+		  </goals>
+		</execution>
+              </executions>
+            </plugin>
+
+	    <!-- Runs the integration tests. -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-failsafe-plugin</artifactId>
+              <version>${maven-failsafe-plugin.version}</version>
+              <executions>
+                <execution>
+                  <id>integration-tests</id>
+                  <goals>
+                    <goal>integration-test</goal>
+                    <goal>verify</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+	    
+            <!-- Enable copying the artifacts and dependencies by setting
+                 the 'imagej.app.directory' property to a valid directory. -->
+            <plugin>
+              <groupId>net.imagej</groupId>
+              <artifactId>imagej-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>copy-jars</id>
+                  <phase>install</phase>
+                  <goals>
+                    <goal>copy-jars</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+	</build>
+      </profile>
+    </profiles>
 
 </project>

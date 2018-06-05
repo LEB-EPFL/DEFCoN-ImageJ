@@ -2,10 +2,13 @@ language: java
 jdk:
   - oraclejdk8
   - openjdk8
-install: true
+before_install:
+    - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+    - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+install:
+  - mvn --settings settings.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn clean verify -B
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn clean deploy --settings settings.xml -B -U -Prelease
 deploy:
   provider: releases
   api_key:

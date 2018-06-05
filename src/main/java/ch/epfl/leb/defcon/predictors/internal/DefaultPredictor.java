@@ -85,7 +85,7 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
      * Returns the most recent count.
      * 
      * @return The predicted count from the density map.
-     * @throws ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException 
+     * @throws ch.epfl.leb.defcon.predictors.UninitializedPredictorException 
      */
     @Override
     public double getCount() throws UninitializedPredictorException {
@@ -101,7 +101,7 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
      * Returns the most recently calculated density map prediction.
      * 
      * @return The predicted density map.
-     * @throws ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException
+     * @throws ch.epfl.leb.defcon.predictors.UninitializedPredictorException
      */
     public FloatProcessor getDensityMap() throws UninitializedPredictorException {
         if (densityMap == null) {
@@ -182,6 +182,8 @@ public class DefaultPredictor extends AbstractPredictor implements Predictor {
      * be cropped to the next largest multiple of four.
      * 
      * @param ip The image to perform a prediction on.
+     * @throws ch.epfl.leb.defcon.predictors.ImageBitDepthException
+     * @throws ch.epfl.leb.defcon.predictors.SessionClosedException
      */
     @Override
     public void predict(final ImageProcessor ip) throws ImageBitDepthException,

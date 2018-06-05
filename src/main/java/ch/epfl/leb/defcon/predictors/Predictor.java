@@ -38,7 +38,7 @@ public interface Predictor {
      * Returns the most recent count.
      * 
      * @return The predicted count from the density map.
-     * @throws ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException
+     * @throws ch.epfl.leb.defcon.predictors.UninitializedPredictorException
      */
     public double getCount() throws UninitializedPredictorException;
     
@@ -46,7 +46,7 @@ public interface Predictor {
      * Returns the most recently calculated density map prediction.
      * 
      * @return The predicted density map.
-     * @throws ch.epfl.leb.defcon.predictors.internal.UninitializedPredictorException
+     * @throws ch.epfl.leb.defcon.predictors.UninitializedPredictorException
      */
     public FloatProcessor getDensityMap() throws UninitializedPredictorException;
     
