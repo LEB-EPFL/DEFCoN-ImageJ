@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v0.1.2]
+
+### Fixed
+- Fixed the failing Travis build related to a Nexus write error.
+
 ## [v0.1.1]
 
 ### Changed
@@ -38,7 +43,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial project files.
 
-[Unreleased]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/compare/v0.1.2...HEAD
+[v0.1.2]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.1.2
 [v0.1.1]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.1.1
 [v0.1.0]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.1.0
 [v0.0.2]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.0.2

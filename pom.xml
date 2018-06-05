@@ -13,7 +13,7 @@
     
     <groupId>ch.epfl.leb</groupId>
     <artifactId>DEFCoN_</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
 
     <name>DEFCoN-ImageJ</name>
     <description>ImageJ plugin for DEFCoN, a fluorescence spot counter using fully convolutional neural networks.</description>
