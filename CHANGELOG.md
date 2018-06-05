@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v0.1.1]
+
+### Changed
+- The DEFCoN-ImageJ jars are now hosted on Maven Central.
+
 ## [v0.1.0]
 
 ### Added
@@ -34,6 +39,7 @@ All notable changes to this project will be documented in this file.
 - Initial project files.
 
 [Unreleased]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/compare/v0.1.0...HEAD
+[v0.1.1]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.1.1
 [v0.1.0]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.1.0
 [v0.0.2]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.0.2
 [v0.0.1]: https://github.com/LEB-EPFL/DEFCoN-ImageJ/releases/tag/0.0.1
