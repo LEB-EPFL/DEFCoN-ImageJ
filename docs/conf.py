@@ -26,9 +26,9 @@ copyright = '2018, The Laboratory of Experimental Biophysics, EPFL, Lausanne, Sw
 author = 'Baptiste Ottino, Kyle M. Douglass'
 
 # The short X.Y version
-version = '0.1.0-SNAPSHOT'
+version = '0.1.0'
 # The full version, including alpha/beta/rc tags
-release = '0.1.0-SNAPSHOT'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
