@@ -5,10 +5,9 @@ jdk:
 before_install:
     - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
     - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-install:
-  - mvn --settings settings.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+install: true
 script:
-  - mvn clean deploy --settings settings.xml -B -U -Prelease
+  - bash build.sh
 deploy:
   provider: releases
   api_key:
